@@ -208,11 +208,13 @@ public class BootSignature extends ASN1Object
         int secondSize = image.getInt();
         image.getLong(); // second_addr + tags_addr
         int pageSize = image.getInt();
+        int dtSize   = image.getInt(); //device tree size
 
         int length = pageSize // include the page aligned image header
                 + ((kernelSize + pageSize - 1) / pageSize) * pageSize
                 + ((ramdskSize + pageSize - 1) / pageSize) * pageSize
-                + ((secondSize + pageSize - 1) / pageSize) * pageSize;
+                + ((secondSize + pageSize - 1) / pageSize) * pageSize
+                + ((dtSize     + pageSize - 1) / pageSize) * pageSize;
 
         int headerVersion = image.getInt(); // boot image header version
         if (headerVersion > 0) {
